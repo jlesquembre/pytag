@@ -1,0 +1,7 @@
+__pycache__
+docs/_build
+.noseids
+.coverage
+dist
+.tox
+MANIFEST
