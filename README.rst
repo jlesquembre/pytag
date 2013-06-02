@@ -15,5 +15,5 @@ Documentation for pytag is hosted at http://readthedocs.org/docs/cliff/en/latest
 Status
 ------
 
-.. image:: https://secure.travis-ci.org/dhellmann/cliff.png?branch=master
+.. image:: https://secure.travis-ci.org/jlesquembre/pytag.png?branch=master
 
