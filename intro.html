@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; pytag 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="pytag 0.1.0 documentation" href="index.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="pytag - Yet another tool to handle audio metadata" href="index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="pytag - Yet another tool to handle audio metadata"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pytag 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requisites">
+<h2>Requisites<a class="headerlink" href="#requisites" title="Permalink to this headline">¶</a></h2>
+<p>pytag only requires Python &gt;= 3.3.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>pip install pytag
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-usage">
+<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytag</span> <span class="kn">import</span> <span class="n">Audio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio</span> <span class="o">=</span> <span class="n">Audio</span><span class="p">(</span><span class="s">&#39;/path/to/file.ogg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio</span><span class="o">.</span><span class="n">get_tags</span><span class="p">()</span>
+<span class="go">PytagDict({&#39;album&#39;: &#39;a cool album&#39;})</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio</span><span class="o">.</span><span class="n">write_tags</span><span class="p">({</span><span class="s">&#39;album&#39;</span><span class="p">:</span> <span class="s">&#39;a new name&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio</span><span class="o">.</span><span class="n">get_tags</span><span class="p">()</span>
+<span class="go">PytagDict({&#39;album&#39;: &#39;a new name&#39;})</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The returned object (<tt class="xref py py-class docutils literal"><span class="pre">PytagDict</span></tt>) extends the Python <a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>, and
+can be used as a <a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a></p>
+<p class="last">For more information about PytagDict see:
+<a class="reference internal" href="reference.html#pytag.structures.PytagDict" title="pytag.structures.PytagDict"><tt class="xref py py-class docutils literal"><span class="pre">pytag.structures.PytagDict</span></tt></a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#requisites">Requisites</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#basic-usage">Basic usage</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">pytag - Yet another tool to handle audio metadata</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="usage.html"
+                        title="next chapter">Usage</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="pytag - Yet another tool to handle audio metadata"
+             >previous</a> |</li>
+        <li><a href="index.html">pytag 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, José Luis Lafuente.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

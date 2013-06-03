@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Usage &mdash; pytag 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="pytag 0.1.0 documentation" href="index.html" />
+    <link rel="next" title="Supported formats" href="support.html" />
+    <link rel="prev" title="Introduction" href="intro.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="support.html" title="Supported formats"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pytag 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="common-interface">
+<h2>Common interface<a class="headerlink" href="#common-interface" title="Permalink to this headline">¶</a></h2>
+<p>pytag defines a common list of tags (or comments) for all the supported audio
+formats. This tags are defined at <a class="reference internal" href="reference.html#pytag.constants.FIELD_NAMES" title="pytag.constants.FIELD_NAMES"><tt class="xref py py-data docutils literal"><span class="pre">pytag.constants.FIELD_NAMES</span></tt></a> and
+they are:</p>
+<ul class="simple">
+<li>title</li>
+<li>artist</li>
+<li>album</li>
+<li>date</li>
+<li>tracknumber</li>
+<li>organization</li>
+<li>genre</li>
+<li>performer</li>
+</ul>
+<p>Using the common interface, doesn&#8217;t matter if we use want to read from a mp3 or
+from a ogg vorbis file. If an audio file contains other tags, they are ignored.</p>
+<p>Reading metadata from multiple audio files:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pytag</span> <span class="kn">import</span> <span class="n">AudioReader</span><span class="p">,</span> <span class="n">FormatNotSupportedError</span>
+
+<span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;audio.ogg&#39;</span><span class="p">,</span> <span class="s">&#39;audio.mp3&#39;</span><span class="p">,</span> <span class="s">&#39;image.png&#39;</span><span class="p">]</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">audio</span> <span class="o">=</span> <span class="n">AudioReader</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+        <span class="k">print</span> <span class="p">(</span><span class="n">audio</span><span class="o">.</span><span class="n">get_tags</span><span class="p">())</span>
+<span class="k">except</span> <span class="n">FormatNotSupportedError</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Process other file...&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If <tt class="docutils literal"><span class="pre">audio.ogg</span></tt> has a tag called <tt class="docutils literal"><span class="pre">band</span></tt>, this is ignored. If you want
+all the tags, use the Ogg vorbis interface. See:
+<a class="reference internal" href="#vorbis-comm"><em>Vorbis comments</em></a></p>
+</div>
+<p>Writing metadata to an audio file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pytag</span> <span class="kn">import</span> <span class="n">Audio</span>
+
+<span class="n">audio</span> <span class="o">=</span> <span class="n">Audio</span><span class="p">(</span><span class="s">&#39;music.ogg&#39;</span><span class="p">)</span>
+<span class="n">audio</span><span class="o">.</span><span class="n">write_tags</span><span class="p">({</span><span class="s">&#39;album&#39;</span><span class="p">:</span> <span class="s">&#39;cool&#39;</span><span class="p">,</span> <span class="s">&#39;year&#39;</span><span class="p">:</span> <span class="s">&#39;2000&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Here only tag <tt class="docutils literal"><span class="pre">album</span></tt> is saved, <tt class="docutils literal"><span class="pre">year</span></tt> is ignored.</p>
+<p class="last"><a class="reference internal" href="reference.html#pytag.Audio" title="pytag.Audio"><tt class="xref py py-class docutils literal"><span class="pre">pytag.Audio</span></tt></a> extends <a class="reference internal" href="reference.html#pytag.AudioReader" title="pytag.AudioReader"><tt class="xref py py-class docutils literal"><span class="pre">pytag.AudioReader</span></tt></a>, with
+<a class="reference internal" href="reference.html#pytag.Audio" title="pytag.Audio"><tt class="xref py py-class docutils literal"><span class="pre">pytag.Audio</span></tt></a> is also possible read the tags. Class
+<a class="reference internal" href="reference.html#pytag.AudioReader" title="pytag.AudioReader"><tt class="xref py py-class docutils literal"><span class="pre">pytag.AudioReader</span></tt></a> is provided just to avoid write some metadata
+by mistake.</p>
+</div>
+</div>
+<div class="section" id="vorbis-comments">
+<span id="vorbis-comm"></span><h2>Vorbis comments<a class="headerlink" href="#vorbis-comments" title="Permalink to this headline">¶</a></h2>
+<p>Using Vorbis comments is possible to save any metadata.</p>
+<p>Writing and reading random tags:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytag.format</span> <span class="kn">import</span> <span class="n">OggVorbis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vorbis</span> <span class="o">=</span> <span class="n">OggVorbis</span><span class="p">(</span><span class="s">&#39;music.ogg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vorbis</span><span class="o">.</span><span class="n">write_tags</span><span class="p">({</span><span class="s">&#39;foo&#39;</span><span class="p">:</span> <span class="s">&#39;bar&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vorbis</span><span class="o">.</span><span class="n">get_tags</span><span class="p">()</span>
+<span class="go">{&#39;foo&#39;: &#39;bar&#39;}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Like <a class="reference internal" href="reference.html#pytag.Audio" title="pytag.Audio"><tt class="xref py py-class docutils literal"><span class="pre">pytag.Audio</span></tt></a> has a <a class="reference internal" href="reference.html#pytag.AudioReader" title="pytag.AudioReader"><tt class="xref py py-class docutils literal"><span class="pre">pytag.AudioReader</span></tt></a> only for
+reading, <a class="reference internal" href="reference.html#pytag.formats.OggVorbis" title="pytag.formats.OggVorbis"><tt class="xref py py-class docutils literal"><span class="pre">pytag.formats.OggVorbis</span></tt></a> also has a
+<a class="reference internal" href="reference.html#pytag.formats.OggVorbisReader" title="pytag.formats.OggVorbisReader"><tt class="xref py py-class docutils literal"><span class="pre">pytag.formats.OggVorbisReader</span></tt></a> which only is allow to read the
+comments.</p>
+</div>
+</div>
+<div class="section" id="mp3-tags">
+<h2>Mp3 tags<a class="headerlink" href="#mp3-tags" title="Permalink to this headline">¶</a></h2>
+<p>Mp3 files uses ID3 to save the metadata. This format defines a list of codes
+for the valid tags. See <a class="reference external" href="http://en.wikipedia.org/wiki/ID3#ID3v2_Frame_Specification_.28Version_2.3.29">Wikipedia ID3v2 Frames List</a></p>
+<p>As this list is huge and many times confusing, I recommend use only the common
+interface to read/write Mp3 tags.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Usage</a><ul>
+<li><a class="reference internal" href="#common-interface">Common interface</a></li>
+<li><a class="reference internal" href="#vorbis-comments">Vorbis comments</a></li>
+<li><a class="reference internal" href="#mp3-tags">Mp3 tags</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intro.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="support.html"
+                        title="next chapter">Supported formats</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="support.html" title="Supported formats"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">pytag 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, José Luis Lafuente.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

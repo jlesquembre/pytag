@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Library reference &mdash; pytag 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="pytag 0.1.0 documentation" href="index.html" />
+    <link rel="prev" title="Supported formats" href="support.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="support.html" title="Supported formats"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pytag 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="library-reference">
+<h1>Library reference<a class="headerlink" href="#library-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pytag">
+<h2>pytag<a class="headerlink" href="#pytag" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pytag.AudioReader">
+<em class="property">class </em><tt class="descclassname">pytag.</tt><tt class="descname">AudioReader</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#pytag.AudioReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>High level interface for pytag. Creates a new object if the audio format
+is supported, or returns a <a class="reference internal" href="#pytag.FormatNotSupportedError" title="pytag.FormatNotSupportedError"><tt class="xref py py-exc docutils literal"><span class="pre">pytag.FormatNotSupportedError</span></tt></a> if not.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytag.Audio">
+<em class="property">class </em><tt class="descclassname">pytag.</tt><tt class="descname">Audio</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#pytag.Audio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends <a class="reference internal" href="#pytag.AudioReader" title="pytag.AudioReader"><tt class="xref py py-class docutils literal"><span class="pre">pytag.AudioReader</span></tt></a> and adds a <tt class="docutils literal"><span class="pre">write_tags</span></tt> method.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytag.FormatNotSupportedError">
+<em class="property">class </em><tt class="descclassname">pytag.</tt><tt class="descname">FormatNotSupportedError</tt><a class="headerlink" href="#pytag.FormatNotSupportedError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="codecs">
+<h2>Codecs<a class="headerlink" href="#codecs" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pytag.codecs.VorbisComment">
+<em class="property">class </em><tt class="descclassname">pytag.codecs.</tt><tt class="descname">VorbisComment</tt><a class="headerlink" href="#pytag.codecs.VorbisComment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class to read/write vorbis comments as defined at:
+<a class="reference external" href="http://www.xiph.org/vorbis/doc/Vorbis_I_spec.html">http://www.xiph.org/vorbis/doc/Vorbis_I_spec.html</a></p>
+<dl class="method">
+<dt id="pytag.codecs.VorbisComment.process_comments">
+<tt class="descname">process_comments</tt><big>(</big><em>packet</em><big>)</big><a class="headerlink" href="#pytag.codecs.VorbisComment.process_comments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the comments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>packet</strong> (<tt class="docutils literal"><span class="pre">pytag.containers.PacketReader</span></tt>) &#8211; Object to read from, has a read method.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A <tt class="docutils literal"><span class="pre">dict</span></tt>-like object with all the comments.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">pytag.structures.CaseInsensitiveDict</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytag.codecs.Vorbis">
+<em class="property">class </em><tt class="descclassname">pytag.codecs.</tt><tt class="descname">Vorbis</tt><a class="headerlink" href="#pytag.codecs.Vorbis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytag.codecs.VorbisComment" title="pytag.codecs.VorbisComment"><tt class="xref py py-class docutils literal"><span class="pre">pytag.codecs.VorbisComment</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="constants">
+<h2>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="pytag.constants.FIELD_NAMES">
+<tt class="descclassname">pytag.constants.</tt><tt class="descname">FIELD_NAMES</tt><em class="property"> = ('title', 'artist', 'album', 'date', 'tracknumber', 'organization', 'genre', 'performer')</em><a class="headerlink" href="#pytag.constants.FIELD_NAMES" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default comments/tags accepted by pytag</p>
+</dd></dl>
+
+</div>
+<div class="section" id="containers">
+<h2>Containers<a class="headerlink" href="#containers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pytag.containers.OggPage">
+<em class="property">class </em><tt class="descclassname">pytag.containers.</tt><tt class="descname">OggPage</tt><big>(</big><em>fileobj</em><big>)</big><a class="headerlink" href="#pytag.containers.OggPage" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="pytag.containers.OggPage.as_bytes">
+<tt class="descname">as_bytes</tt><big>(</big><em>update_crc=False</em><big>)</big><a class="headerlink" href="#pytag.containers.OggPage.as_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the complete page as bytes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Paramer update_crc:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Flag to know if recalculate the CRC.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Ogg page</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/3/library/array.html#array.array" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">array.array</span></tt></a> of bytes, typecode = &#8216;B&#8217;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytag.containers.OggPage.get_packet_info">
+<tt class="descname">get_packet_info</tt><big>(</big><big>)</big><a class="headerlink" href="#pytag.containers.OggPage.get_packet_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the size of the next packet (or partial packet) in the current
+page. This size can be smaller than the full packet because a packet
+can we splited in severa pages. Also check it the packet finish in the
+current page.  If page has no more bytes to read, this function
+iterates to the next page.
+The idea is use this function as callback in PacketReader, this way,
+when a packet is readed, the reader doesn&#8217;t need to worry about how the
+packet is saved inside an ogg stream.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Next packet size and if the packet finish in this page.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">collections.namedtuple</span></tt> of type <tt class="docutils literal"><span class="pre">PacketInfo</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytag.containers.OggPage.get_packet_reader">
+<tt class="descname">get_packet_reader</tt><big>(</big><big>)</big><a class="headerlink" href="#pytag.containers.OggPage.get_packet_reader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a packet reader for the current page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A packet reader over the same stream used by this OggPage</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">PacketReader</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytag.containers.OggPage.is_last_page">
+<tt class="descname">is_last_page</tt><big>(</big><big>)</big><a class="headerlink" href="#pytag.containers.OggPage.is_last_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the page is the last in a logical bitstream.
+:returns: True if is the last one, False if not.
+:rtype: <tt class="docutils literal"><span class="pre">boolean</span></tt></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytag.containers.OggPage.next_page">
+<tt class="descname">next_page</tt><big>(</big><big>)</big><a class="headerlink" href="#pytag.containers.OggPage.next_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates to next page.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytag.containers.OggPage.rest_of_pages">
+<tt class="descname">rest_of_pages</tt><big>(</big><big>)</big><a class="headerlink" href="#pytag.containers.OggPage.rest_of_pages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterator over still not readed pages.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytag.containers.OggReader">
+<em class="property">class </em><tt class="descclassname">pytag.containers.</tt><tt class="descname">OggReader</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#pytag.containers.OggReader" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="pytag.containers.OggReader.comments_page_position">
+<tt class="descname">comments_page_position</tt><big>(</big><big>)</big><a class="headerlink" href="#pytag.containers.OggReader.comments_page_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the page number where the comments start.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytag.containers.OggReader.process_comments">
+<tt class="descname">process_comments</tt><big>(</big><em>packet</em><big>)</big><a class="headerlink" href="#pytag.containers.OggReader.process_comments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the comments.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytag.containers.Ogg">
+<em class="property">class </em><tt class="descclassname">pytag.containers.</tt><tt class="descname">Ogg</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#pytag.containers.Ogg" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="pytag.containers.Ogg.packets_after_comments">
+<tt class="descname">packets_after_comments</tt><big>(</big><big>)</big><a class="headerlink" href="#pytag.containers.Ogg.packets_after_comments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of packets in the same page after the comments
+packet</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytag.containers.Ogg.write_tags">
+<tt class="descname">write_tags</tt><big>(</big><em>comments</em><big>)</big><a class="headerlink" href="#pytag.containers.Ogg.write_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the tags to a new file, if no path is provided, the original
+file is overwrited</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytag.containers.PacketReader">
+<em class="property">class </em><tt class="descclassname">pytag.containers.</tt><tt class="descname">PacketReader</tt><big>(</big><em>fileobj</em>, <em>get_packet_info_callback</em><big>)</big><a class="headerlink" href="#pytag.containers.PacketReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>My class doc.</p>
+<dl class="method">
+<dt id="pytag.containers.PacketReader.read">
+<tt class="descname">read</tt><big>(</big><em>_n=-1</em><big>)</big><a class="headerlink" href="#pytag.containers.PacketReader.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read up to n bytes from the current packet in the stream and return
+them. If n is unspecified or -1, read and return all the bytes until
+the packet end.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="formats">
+<h2>Formats<a class="headerlink" href="#formats" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pytag.formats.OggVorbisReader">
+<em class="property">class </em><tt class="descclassname">pytag.formats.</tt><tt class="descname">OggVorbisReader</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#pytag.formats.OggVorbisReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytag.codecs.Vorbis" title="pytag.codecs.Vorbis"><tt class="xref py py-class docutils literal"><span class="pre">pytag.codecs.Vorbis</span></tt></a>, <a class="reference internal" href="#pytag.containers.OggReader" title="pytag.containers.OggReader"><tt class="xref py py-class docutils literal"><span class="pre">pytag.containers.OggReader</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytag.formats.OggVorbis">
+<em class="property">class </em><tt class="descclassname">pytag.formats.</tt><tt class="descname">OggVorbis</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#pytag.formats.OggVorbis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="structures">
+<h2>Structures<a class="headerlink" href="#structures" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="caseinsensitivedict">
+<h3>CaseInsensitiveDict<a class="headerlink" href="#caseinsensitivedict" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="pytag.structures.CaseInsensitiveDict">
+<em class="property">class </em><tt class="descclassname">pytag.structures.</tt><tt class="descname">CaseInsensitiveDict</tt><big>(</big><em>data=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pytag.structures.CaseInsensitiveDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>A case-insensitive <a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>-like object.</p>
+<p>Implements all methods and operations of
+<a class="reference external" href="http://docs.python.org/3/library/collections.abc.html#collections.abc.MutableMapping" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">collections.abc.MutableMapping</span></tt></a> as well as dict&#8217;s
+<a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#dict.copy" title="(in Python v3.3)"><tt class="xref py py-meth docutils literal"><span class="pre">dict.copy()</span></tt></a>.</p>
+<p>All keys are expected to be strings. The structure always set the key to
+lower case.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cid</span> <span class="o">=</span> <span class="n">CaseInsensitiveDict</span><span class="p">()</span>
+<span class="n">cid</span><span class="p">[</span><span class="s">&#39;Key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;value&#39;</span>
+<span class="n">cid</span><span class="p">[</span><span class="s">&#39;KEY&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;value&#39;</span>  <span class="c"># True</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">cid</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="s">&#39;key&#39;</span><span class="p">]</span>   <span class="c"># True</span>
+</pre></div>
+</div>
+<p>If the constructor, update, or equality comparison operations are given
+keys that have equal <a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#str.lower" title="(in Python v3.3)"><tt class="xref py py-meth docutils literal"><span class="pre">str.lower()</span></tt></a>, the behavior is undefined.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pytagdict">
+<h3>PytagDict<a class="headerlink" href="#pytagdict" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="pytag.structures.PytagDict">
+<em class="property">class </em><tt class="descclassname">pytag.structures.</tt><tt class="descname">PytagDict</tt><big>(</big><em>data=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pytag.structures.PytagDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>A case-insensitive <a class="reference external" href="http://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>-like object where only the values
+defines in <a class="reference internal" href="#pytag.constants.FIELD_NAMES" title="pytag.constants.FIELD_NAMES"><tt class="xref py py-data docutils literal"><span class="pre">pytag.constants.FIELD_NAMES</span></tt></a> constant are allowed as
+keys. If a key is not valid, is ignored without any warning.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Library reference</a><ul>
+<li><a class="reference internal" href="#pytag">pytag</a></li>
+<li><a class="reference internal" href="#codecs">Codecs</a></li>
+<li><a class="reference internal" href="#constants">Constants</a></li>
+<li><a class="reference internal" href="#containers">Containers</a></li>
+<li><a class="reference internal" href="#formats">Formats</a></li>
+<li><a class="reference internal" href="#structures">Structures</a><ul>
+<li><a class="reference internal" href="#caseinsensitivedict">CaseInsensitiveDict</a></li>
+<li><a class="reference internal" href="#pytagdict">PytagDict</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="support.html"
+                        title="previous chapter">Supported formats</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="support.html" title="Supported formats"
+             >previous</a> |</li>
+        <li><a href="index.html">pytag 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, José Luis Lafuente.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
