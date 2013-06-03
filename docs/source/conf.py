@@ -147,6 +147,14 @@ html_theme = 'pyramid'
 
 # Custom sidebar templates, maps document names to template names.
 #html_sidebars = {}
+html_sidebars = {
+   '**': [
+          'links.html',
+          'relations.html',
+          'localtoc.html',
+          'searchbox.html',
+          'sourcelink.html'],
+}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.

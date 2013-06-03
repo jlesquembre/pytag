@@ -12,7 +12,7 @@ setup(name='pytag',
       description='A library to handle audio metadata',
       long_description=README,
       license='GNU General Public License v3 (GPLv3)',
-      url='https://smiley.readthedocs.org/',
+      url='http://jlesquembre.github.io/pytag/',
       packages=['pytag'],
       classifiers=[
         'Development Status :: 3 - Alpha',

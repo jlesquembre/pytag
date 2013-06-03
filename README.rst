@@ -9,7 +9,7 @@ pytag is a Python 3 library to handle audio metadata.
 Documentation
 -------------
 
-Documentation for pytag is hosted at http://readthedocs.org/docs/cliff/en/latest/
+Documentation for pytag is hosted at http://jlesquembre.github.io/pytag/
 
 
 Status
