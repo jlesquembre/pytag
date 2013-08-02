@@ -6,8 +6,8 @@ ID3_ENCODINGS = ('ascii', 'utf_16', 'utf_16_be', 'utf_8')
 FIELD_NAMES = ('title', 'artist', 'album', 'date', 'tracknumber',
                'organization', 'genre', 'performer')
 
-TAG_ID3_V22 = ('TT2', 'TP1', 'TAL', 'TDA', 'TRK', 'TPB', 'TCO', 'TOA')
-TAG_ID3_V23 = ('TIT2', 'TPE1', 'TALB', 'TDAT', 'TRCK', 'TPUB', 'TCON', 'TOPE')
+TAG_ID3_V22 = ('TT2', 'TP1', 'TAL', 'TYE', 'TRK', 'TPB', 'TCO', 'TOA')
+TAG_ID3_V23 = ('TIT2', 'TPE1', 'TALB', 'TYER', 'TRCK', 'TPUB', 'TCON', 'TOPE')
 TAG_ID3_V24 = ('TIT2', 'TPE1', 'TALB', 'TDRC', 'TRCK', 'TPUB', 'TCON', 'TOPE')
 
 ID3_GENRES = {
