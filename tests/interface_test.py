@@ -23,6 +23,17 @@ class InterfaceTest(unittest.TestCase):
         audio = AudioReader(path)
         self.assertEqual(self.tags, audio.get_tags())
 
+    def test_read_lazy(self):
+        path = os.path.join(os.path.dirname(__file__),
+                            'files', 'oggvorbis', 'sample.ogg')
+
+        audio = AudioReader(path)
+        self.assertEqual(audio.title, 'test')
+        self.assertEqual(audio.artist, 'test')
+        self.assertEqual(audio.album, 'test')
+        self.assertEqual(audio.genre, 'test')
+        self.assertEqual(audio.tracknumber, None)
+
     def test_write(self):
         path = os.path.join(os.path.dirname(__file__),
                             'files', 'oggvorbis', 'sample.ogg')
