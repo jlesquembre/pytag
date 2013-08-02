@@ -6,7 +6,7 @@ with open(os.path.join(here, 'README.rst'), 'rt') as f:
     README = f.read()
 
 setup(name='pytag',
-      version='0.1.1',
+      version='0.1.2',
       author='José Luis Lafuente',
       author_email='jlesquembre@gmail.com',
       description='A library to handle audio metadata',
