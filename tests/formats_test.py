@@ -10,7 +10,6 @@ from nose.tools import *
 
 from pytag.containers import OggPage
 from pytag.formats import OggVorbis, OggVorbisReader, OggOpus
-from pytag import utils
 
 oggs = (
     {'name': 'nocomments.ogg',
@@ -18,68 +17,27 @@ oggs = (
      },
     {'name': 'sample.ogg',
      'tags':
-     {'title':'test',
-      'artist':'test',
-      'album':'test',
-      'comment':'test',
-      'genre':'test',
+     {'title': 'test',
+      'artist': 'test',
+      'album': 'test',
+      'comment': 'test',
+      'genre': 'test',
       }
      },
     )
 
+
 def test_generator_for_vorbis():
     path = os.path.join(os.path.dirname(__file__), 'files', 'oggvorbis')
-    #for ogg in os.listdir(path):
-    #    yield check_get_vorbis_tags, os.path.join(path, ogg)
     for ogg in oggs:
         ogg['path'] = os.path.join(path, ogg['name'])
         yield check_get_vorbis_tags, ogg
 
 
-
-#def check_get_vorbis_tags(path):
-
-#    comments = subprocess.check_output(['vorbiscomment', path])
-#    v_comments = dict(item.decode().split("=") for item in comments.split())
-
-#    eq_(utils.tag_dict(v_comments), OggVorbisReader(path).get_tags())
-
 def check_get_vorbis_tags(ogg):
-
-    #comments = subprocess.check_output(['vorbiscomment', path])
-    #v_comments = dict(item.decode().split("=") for item in comments.split())
 
     eq_(ogg['tags'], OggVorbisReader(ogg['path']).get_tags())
 
-
-def process_ogginfo_output(out):
-    comment_section = False
-    output = []
-    comments = []
-
-    for line in out.decode().splitlines():
-
-        if line.startswith('Vendor:'):
-            vendor = line
-            continue
-
-        if line == 'User comments section follows...':
-            comment_section = True
-            continue
-
-        if comment_section:
-            if line.startswith('Vorbis stream'):
-                comment_section = False
-            else:
-                comments.append(line.strip())
-            continue
-
-        if not line.startswith('Processing file'):
-            output.append(line)
-
-
-    v_comments = dict(item.split("=") for item in comments)
-    return output, utils.tag_dict(v_comments), vendor[8:]
 
 """
 class OpusTest(unittest.TestCase):
@@ -104,27 +62,17 @@ class OpusTest(unittest.TestCase):
         os.remove(self.opus_temp)
 """
 
+
 class OggVorbisWriteTest(unittest.TestCase):
 
     def setUp(self):
-        self.ogg_path = os.path.join(os.path.dirname(__file__), 'files', 'oggvorbis', 'sample.ogg')
+        self.ogg_path = os.path.join(os.path.dirname(__file__), 'files',
+                                     'oggvorbis', 'sample.ogg')
         self.temp_ogg = tempfile.mkstemp()[1]
         shutil.copy(self.ogg_path, self.temp_ogg)
 
     def tearDown(self):
         os.remove(self.temp_ogg)
-
-
-    def ___do_assertions(self):
-        output, comments, vendor = process_ogginfo_output(subprocess.check_output(['ogginfo', self.ogg_path]))
-        new_output, new_comments, new_vendor = process_ogginfo_output(subprocess.check_output(['ogginfo', self.temp_ogg]))
-
-
-
-
-        self.assertEqual(output, new_output)
-        self.assertEqual(new_comments, utils.tag_dict(self.tags))
-        self.assertEqual(new_vendor, OggVorbisReader(self.temp_ogg).vendor_name.decode())
 
     def assert_new_tags(self):
 
@@ -157,7 +105,6 @@ class OggVorbisWriteTest(unittest.TestCase):
         ogg.write_tags(self.tags)
         self.assert_new_tags()
 
-
     def test_write_same_tags(self):
         ogg = OggVorbis(self.temp_ogg)
         self.tags = ogg.get_tags()
@@ -173,10 +120,9 @@ class OggVorbisWriteTest(unittest.TestCase):
         ogg = OggVorbis(self.temp_ogg)
 
         self.tags = {}
-        #keys = [a+b for a in string.ascii_uppercase for b in string.ascii_uppercase]
-
-        #keys = [''.join(tup) for tup in (list(itertools.product(string.ascii_lowercase[:16], repeat=2)))]
-        keys = [''.join(tup) for tup in (list(itertools.product(string.ascii_lowercase[:16], repeat=2)))]
+        keys = [''.join(tup) for tup in (list(itertools.product(
+                                              string.ascii_lowercase[:16],
+                                              repeat=2)))]
 
         for key in keys:
             self.tags[key] = 'a'*255
@@ -205,12 +151,3 @@ class OggVorbisWriteTest(unittest.TestCase):
             self.assertFalse(ogg_new.is_last_page())
             ogg_new.next_page()
             self.assertTrue(ogg_new.is_last_page())
-        #self.do_assertions()
-
-        #output, comments, vendor = process_ogginfo_output(subprocess.check_output(['ogginfo', self.ogg_path]))
-        #new_output, new_comments, new_vendor = process_ogginfo_output(subprocess.check_output(['ogginfo', self.temp_ogg]))
-
-        #self.assertEqual(output, new_output)
-        #self.assertEqual(tags, new_comments)
-        #self.assertEqual(new_vendor, OggVorbisReader(new_ogg_path).vendor_name.decode())
-
