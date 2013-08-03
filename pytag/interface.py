@@ -1,13 +1,13 @@
-from os.path import splitext
+import magic
 
 from pytag.structures import PytagDict
 from pytag.constants import FIELD_NAMES
 from pytag.formats import OggVorbisReader, OggVorbis, Mp3Reader, Mp3
 
 
-EXTENSIONS = {'.ogg': (OggVorbisReader, OggVorbis),
-              '.mp3': (Mp3Reader, Mp3)
-              }
+MIMETYPE = {'application/ogg': (OggVorbisReader, OggVorbis),
+            'audio/mpeg': (Mp3Reader, Mp3)
+            }
 
 
 class Tag:
@@ -52,12 +52,15 @@ class AudioReader(metaclass=MetaAudio):
     _index = 0
 
     def __init__(self, path):
+
+        with magic.Magic(flags=magic.MAGIC_MIME_TYPE) as m:
+            self.mimetype = m.id_filename(path)
+
         try:
-            ext = splitext(path)[1].lower()
-            self._format = EXTENSIONS[ext][self._index](path)
+            self._format = MIMETYPE[self.mimetype][self._index](path)
         except KeyError:
             raise FormatNotSupportedError(
-                '"{}" extension is not suppored'.format(ext))
+                '"{}" type is not suppored'.format(self.mimetype))
 
     def get_tags(self):
 

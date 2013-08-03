@@ -6,7 +6,7 @@ with open(os.path.join(here, 'README.rst'), 'rt') as f:
     README = f.read()
 
 setup(name='pytag',
-      version='0.1.2',
+      version='0.1.3',
       author='José Luis Lafuente',
       author_email='jlesquembre@gmail.com',
       description='A library to handle audio metadata',
@@ -14,6 +14,7 @@ setup(name='pytag',
       license='GNU General Public License v3 (GPLv3)',
       url='http://jlesquembre.github.io/pytag/',
       packages=['pytag'],
+      install_requires=['filemagic'],
       classifiers=[
         'Development Status :: 3 - Alpha',
         'Topic :: Multimedia :: Sound/Audio',

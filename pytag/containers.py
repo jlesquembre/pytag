@@ -99,7 +99,7 @@ class OggPage:
 
         (self.oggs, self.version, self.header_type, self.granule_position,
          self.serial, self.number, self.crc, self.page_segments) = (
-             self.header_struct.unpack(buf))
+            self.header_struct.unpack(buf))
 
     def get_packet_info(self):
         """Gets the size of the next packet (or partial packet) in the current
