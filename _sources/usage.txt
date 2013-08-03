@@ -2,6 +2,8 @@
 Usage
 =====
 
+.. _common-tags:
+
 Common interface
 ----------------
 
@@ -20,6 +22,9 @@ they are:
 
 Using the common interface, doesn't matter if we use want to read from a mp3 or
 from a ogg vorbis file. If an audio file contains other tags, they are ignored.
+
+There also one extra field in an Audio object, `mimetype`, which contains the
+file mimetype
 
 Reading metadata from multiple audio files:
 
@@ -95,5 +100,3 @@ for the valid tags. See `Wikipedia ID3v2 Frames List
 
 As this list is huge and many times confusing, I recommend use only the common
 interface to read/write Mp3 tags.
-
-
