@@ -1,5 +1,4 @@
 Sphinx
-sphinx-bootstrap-theme
 coverage
 ipdb
 nose

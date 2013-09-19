@@ -12,8 +12,9 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os, subprocess
-#import sphinx_bootstrap_theme
+import sys
+import os
+import pkg_resources
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -55,11 +56,7 @@ copyright = '2013, José Luis Lafuente'
 # built documents.
 #
 # The short X.Y version.
-version = subprocess.check_output([
-    'sh', '-c',
-    'cd ../..; python setup.py --version',
-])
-version = version.decode().strip()
+version = pkg_resources.get_distribution(project).version
 
 # The full version, including alpha/beta/rc tags.
 release = version
