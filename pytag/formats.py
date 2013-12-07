@@ -124,15 +124,20 @@ class Mp3Reader:
         return comments
 
     def _decode_genre(self, text):
-        genres = []
-        for code in text.split(')('):
-            code = int(code.strip('()'))
-            genres.append(ID3_GENRES[code])
 
-        if len(genres) == 1:
-            return genres[0]
+        try:
+            genres = []
+            for code in text.split(')('):
+                code = int(code.strip('()'))
+                genres.append(ID3_GENRES[code])
 
-        return genres
+            if len(genres) == 1:
+                return genres[0]
+
+            return genres
+        except:
+            return text
+
 
     def _read_id3_generic_frame(self, frame_id, size, id3_type):
 
