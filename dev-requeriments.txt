@@ -1,6 +1,10 @@
 Sphinx
 coverage
+ipython
 ipdb
 nose
 see
 pyroma
+pep8
+jlle
+-e .

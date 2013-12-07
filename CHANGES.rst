@@ -1,0 +1,9 @@
+Changelog for pytag
+===================
+
+0.1.4 (unreleased)
+------------------
+
+- Automate release creation.
+
+- Improve project structure.
