@@ -3,6 +3,7 @@ import struct
 import io
 import tempfile
 import shutil
+import logging
 from array import array
 
 from pytag import utils
@@ -10,6 +11,9 @@ from pytag.containers import OggReader, Ogg
 from pytag.codecs import Vorbis, Opus
 from pytag.constants import (ID3_ENCODINGS, ID3_GENRES, FIELD_NAMES,
                              TAG_ID3_V22, TAG_ID3_V23, TAG_ID3_V24)
+
+
+log = logging.getLogger('pytag')
 
 
 class OggVorbisReader(Vorbis, OggReader):
@@ -140,6 +144,9 @@ class Mp3Reader:
 
 
     def _read_id3_generic_frame(self, frame_id, size, id3_type):
+
+        log.info('Found frame: "{}" for id3 version 2.{}'.format(frame_id,
+                                                                 id3_type))
 
         (encoding, ) = struct.unpack('> B', self.input_file.read(1))
         header_size = 6 if id3_type == 2 else 10
