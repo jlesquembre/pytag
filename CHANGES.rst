@@ -1,7 +1,7 @@
 Changelog for pytag
 ===================
 
-0.1.4 (unreleased)
+0.1.4 (2013-12-08)
 ------------------
 
 - Automate release creation.

@@ -5,7 +5,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, 'README.rst'), 'rt') as f:
     README = f.read()
 
-version = '0.1.4.dev0'
+version = '0.1.4'
 
 setup(name='pytag',
       version=version,
