@@ -105,9 +105,14 @@ class Mp3Reader:
 
     def _read_id3v2_tags(self):
         (mayor, minor) = struct.unpack('> B B', self.input_file.read(2))
-        self.input_file.seek(1, io.SEEK_CUR)
+
+        #TODO Check if extended header (second bit from left), and skip
+        # In extended header, first 4 bytes are the size.
+        self.input_file.seek(1, io.SEEK_CUR)  # Flags
+
         size = utils.decode_bitwise_int(struct.unpack('> B B B B',
                                                       self.input_file.read(4)))
+        log.info(' Complete size: {}'.format(size))
 
         if mayor == 2:
             read_frame = self._read_id3v22_frame
@@ -122,8 +127,13 @@ class Mp3Reader:
         while size > 0:
             frame = read_frame()
             size -= frame.size
-            if frame.comment:
+            if frame.comment:  # Only use some frames
                 comments.update(frame.comment)
+
+            elif frame.size <= 4:  # Padding at the end of the frames
+                log.info('Found padding: {} bytes'.format(frame.size + size))
+                self.input_file.seek(size, io.SEEK_CUR)
+                size = 0
 
         return comments
 
@@ -142,8 +152,26 @@ class Mp3Reader:
         except:
             return text
 
+    @staticmethod
+    def as_field(frame_id, id3_type):
+
+        id_ = frame_id.decode()
+
+        if id3_type == 2:
+            id3 = TAG_ID3_V22
+        elif id3_type == 3:
+            id3 = TAG_ID3_V23
+        elif id3_type == 4:
+            id3 = TAG_ID3_V24
+
+        index = id3.index(id_)
+
+        return FIELD_NAMES[index]
 
     def _read_id3_generic_frame(self, frame_id, size, id3_type):
+
+        if frame_id in (b'\x00\x00\x00\x00', b'\x00\x00\x00'):  # Padding found
+            return Id3Frame(None, len(frame_id))
 
         log.info('Found frame: "{}" for id3 version 2.{}'.format(frame_id,
                                                                  id3_type))
@@ -151,21 +179,19 @@ class Mp3Reader:
         (encoding, ) = struct.unpack('> B', self.input_file.read(1))
         header_size = 6 if id3_type == 2 else 10
         try:
-            if id3_type == 2:
-                index = TAG_ID3_V22.index(frame_id.decode())
-            if id3_type == 3:
-                index = TAG_ID3_V23.index(frame_id.decode())
-            if id3_type == 4:
-                index = TAG_ID3_V24.index(frame_id.decode())
+
+            field_name = self.as_field(frame_id, id3_type)
 
             data = self.input_file.read(size-1)
             data = data.decode(ID3_ENCODINGS[encoding])
 
-            if frame_id == b'TCO' or frame_id == b'TCON':
-                if id3_type != 4:
-                    data = self._decode_genre(data)
+            # Special cases
+            if field_name == 'genre':
+                data = self._decode_genre(data)
+            elif field_name == 'date':
+                data = data[:4]
 
-            data = {FIELD_NAMES[index]: data}
+            data = {field_name: data}
             return Id3Frame(data, size + header_size)
 
         except ValueError:
