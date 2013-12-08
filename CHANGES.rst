@@ -7,3 +7,5 @@ Changelog for pytag
 - Automate release creation.
 
 - Improve project structure.
+
+- Improve how ID3 padding is handled.
