@@ -2,10 +2,11 @@ import unittest
 import tempfile
 import shutil
 import os
-import pytag
 
+from pytag import Audio
 from pytag.formats import Mp3
 from pytag.constants import FIELD_NAMES
+
 
 class Mp3Test(unittest.TestCase):
 
@@ -107,7 +108,7 @@ class Mp3Test(unittest.TestCase):
         mp3_path = os.path.join(self.mp3_folder, 'id3v24_all_tags.mp3')
 
         id3 = Mp3(mp3_path)
-        tags = { t:t for t in FIELD_NAMES}
+        tags = {t: t for t in FIELD_NAMES}
         tags['tracknumber'] = '1/2'
         tags['date'] = '2000'
         tags['genre'] = 'Blues'
@@ -122,7 +123,7 @@ class Mp3Test(unittest.TestCase):
         shutil.copy(mp3_path, mp3_temp)
 
         id3 = Mp3(mp3_temp)
-        tags = { t:t for t in FIELD_NAMES}
+        tags = {t: t for t in FIELD_NAMES}
         tags['tracknumber'] = '1/2'
         tags['date'] = '2000'
         tags['genre'] = 'Blues'
@@ -168,3 +169,36 @@ class Mp3Test(unittest.TestCase):
         id3.write_tags(tags)
 
         self.assertEqual(id3.get_tags(), tags)
+
+    def test_pad(self):
+        mp3_path = os.path.join(self.mp3_folder, 'pad.mp3')
+        mp3_temp = tempfile.mkstemp()[1]
+        shutil.copy(mp3_path, mp3_temp)
+
+        audio = Audio(mp3_temp)
+        tags = {'title': "There's a Beast and We All Feed It",
+                'genre': 'Rock',
+                'tracknumber': '1',
+                'date': '2013',
+                'artist': 'Jake Bugg',
+                'album': 'Shangri La',
+                }
+        self.assertEqual(audio.get_tags(), tags)
+        audio.write_tags(tags)
+        self.assertEqual(audio.get_tags(), tags)
+
+    def test_pad_short(self):
+        mp3_path = os.path.join(self.mp3_folder, 'pad_short.mp3')
+        mp3_temp = tempfile.mkstemp()[1]
+        shutil.copy(mp3_path, mp3_temp)
+
+        audio = Audio(mp3_temp)
+        tags = {
+            'title': 'test',
+            'artist': 'test',
+            'album': 'test',
+            'genre': 'test'
+        }
+        self.assertEqual(audio.get_tags(), tags)
+        audio.write_tags(tags)
+        self.assertEqual(audio.get_tags(), tags)

@@ -114,8 +114,10 @@ class Mp3Reader:
                                                       self.input_file.read(4)))
         log.info(' Complete size: {}'.format(size))
 
+        header_size = 10  # For id3v2.3 and id3v2.4
         if mayor == 2:
             read_frame = self._read_id3v22_frame
+            header_size = 6
         elif mayor == 3:
             read_frame = self._read_id3v23_frame
         elif mayor == 4:
@@ -125,12 +127,18 @@ class Mp3Reader:
 
         comments = {}
         while size > 0:
+
+            # Remaining size is less than header size, must be padding
+            if size <= header_size:
+                self.input_file.seek(size, io.SEEK_CUR)
+                break
+
             frame = read_frame()
-            size -= frame.size
+            size -= (frame.size + header_size)
             if frame.comment:  # Only use some frames
                 comments.update(frame.comment)
 
-            elif frame.size <= 4:  # Padding at the end of the frames
+            elif frame.size == 0:  # Padding at the end of the frames
                 log.info('Found padding: {} bytes'.format(frame.size + size))
                 self.input_file.seek(size, io.SEEK_CUR)
                 size = 0
@@ -170,16 +178,15 @@ class Mp3Reader:
 
     def _read_id3_generic_frame(self, frame_id, size, id3_type):
 
-        if frame_id in (b'\x00\x00\x00\x00', b'\x00\x00\x00'):  # Padding found
-            return Id3Frame(None, len(frame_id))
+        if size == 0:
+            return Id3Frame(None, 0)
 
         log.info('Found frame: "{}" for id3 version 2.{}'.format(frame_id,
                                                                  id3_type))
 
         (encoding, ) = struct.unpack('> B', self.input_file.read(1))
-        header_size = 6 if id3_type == 2 else 10
-        try:
 
+        try:
             field_name = self.as_field(frame_id, id3_type)
 
             data = self.input_file.read(size-1)
@@ -192,11 +199,11 @@ class Mp3Reader:
                 data = data[:4]
 
             data = {field_name: data}
-            return Id3Frame(data, size + header_size)
+            return Id3Frame(data, size)
 
         except ValueError:
             self.input_file.seek(size - 1, io.SEEK_CUR)
-            return Id3Frame(None, size + header_size)
+            return Id3Frame(None, size)
 
     def _read_id3v22_frame(self):
         (frame_id, ) = struct.unpack('> 3s ', self.input_file.read(3))
