@@ -1,7 +1,7 @@
 Changelog for pytag
 ===================
 
-0.1.5 (unreleased)
+0.1.5 (2013-12-10)
 ------------------
 
 - Add support for mp3 files with padding.
