@@ -59,8 +59,13 @@ class AudioReader(metaclass=MetaAudio):
         try:
             self._format = MIMETYPE[self.mimetype][self._index](path)
         except KeyError:
-            raise FormatNotSupportedError(
-                '"{}" type is not suppored'.format(self.mimetype))
+            # Old filemagic versions don't recognize some mp3 files
+            if (self.mimetype == 'application/octet-stream' and
+                    path.endswith('.mp3')):
+                self._format = MIMETYPE['audio/mpeg'][self._index](path)
+            else:
+                raise FormatNotSupportedError(
+                    '"{}" type is not suppored'.format(self.mimetype))
 
     def get_tags(self):
 
