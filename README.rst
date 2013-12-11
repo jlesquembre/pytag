@@ -15,9 +15,9 @@ Documentation for pytag is hosted at http://jlesquembre.github.io/pytag/
 Status
 ------
 
-.. image:: https://secure.travis-ci.org/jlesquembre/pytag.png?branch=master
+.. image:: https://secure.travis-ci.org/jlesquembre/pytag.png?branch=develop
     :target: http://travis-ci.org/jlesquembre/pytag
 
-.. image:: https://coveralls.io/repos/jlesquembre/pytag/badge.png?branch=master
-    :target: https://coveralls.io/r/jlesquembre/pytag?branch=master
+.. image:: https://coveralls.io/repos/jlesquembre/pytag/badge.png?branch=develop
+    :target: https://coveralls.io/r/jlesquembre/pytag?branch=develop
     :alt: Coverage Status
