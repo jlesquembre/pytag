@@ -172,7 +172,7 @@ class Mp3Test(unittest.TestCase):
 
     def test_pad(self):
         mp3_path = os.path.join(self.mp3_folder, 'pad.mp3')
-        mp3_temp = tempfile.mkstemp()[1]
+        mp3_temp = tempfile.mkstemp(suffix='.mp3')[1]
         shutil.copy(mp3_path, mp3_temp)
 
         audio = Audio(mp3_temp)
@@ -189,7 +189,7 @@ class Mp3Test(unittest.TestCase):
 
     def test_pad_short(self):
         mp3_path = os.path.join(self.mp3_folder, 'pad_short.mp3')
-        mp3_temp = tempfile.mkstemp()[1]
+        mp3_temp = tempfile.mkstemp(suffix='.mp3')[1]
         shutil.copy(mp3_path, mp3_temp)
 
         audio = Audio(mp3_temp)
