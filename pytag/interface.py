@@ -60,7 +60,7 @@ class AudioReader(metaclass=MetaAudio):
             self._format = MIMETYPE[self.mimetype][self._index](path)
         except KeyError:
             raise FormatNotSupportedError(
-                '"{}" type is not suppored'.format(self.mimetype))
+                '"{0}" type is not supported'.format(self.mimetype))
 
     def get_tags(self):
 
