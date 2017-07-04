@@ -2,6 +2,11 @@ language: python
 python:
   - "3.6"
 
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq file libmagic1
+  - file --version
+
 # command to install dependencies
 install:
   - pip install .
