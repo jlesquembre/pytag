@@ -1,9 +1,9 @@
-import collections
+from collections.abc import MutableMapping
 
 from pytag.constants import FIELD_NAMES
 
 
-class CaseInsensitiveDict(collections.MutableMapping):
+class CaseInsensitiveDict(MutableMapping):
     """A case-insensitive :py:class:`dict`-like object.
 
     Implements all methods and operations of
